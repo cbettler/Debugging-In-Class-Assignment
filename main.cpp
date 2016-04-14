@@ -245,7 +245,7 @@ bool write_vector_to_file(vector<string> v, char * file_name);
 int main()
 {
     vector<string> words;
-    char * genome_file_name="/Users/carleebettler/Documents/Comp 271/input1.txt";      //make certain to place this file in the correct folder. Do not change path.
+    char * genome_file_name="/*/Users/carleebettler/Documents/Comp 271/*/input1.txt";      //make certain to place this file in the correct folder. Do not change path.
     if(!get_words(genome_file_name,words))     //will get the words as binary
         return 1;
     
@@ -259,7 +259,7 @@ int main()
     
     
     vector<string> reads;
-    char * reads_file_name="/Users/carleebettler/Documents/Comp 271/input2.txt";       //make certain to place this file in the correct folder. Do not change path.
+    char * reads_file_name="/*/Users/carleebettler/Documents/Comp 271/*/input2.txt";       //make certain to place this file in the correct folder. Do not change path.
     if(!get_reads(reads_file_name,reads))      //will get the reads as binary
         return 1;
     
