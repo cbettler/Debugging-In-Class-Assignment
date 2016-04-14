@@ -1,6 +1,5 @@
 //
 //  main.cpp
-//4/14
 //  debuggingAssignment4
 //
 //  Created by Carlee Bettler on 4/13/16.
@@ -44,8 +43,11 @@ public:
     bool add_word_to_tree(string word);
     bool is_word_in_tree(string word);
     int maxDepth(BTreeNode* node);
-    void InorderR(BTreeNode* rt/*Root*/);
-    string InorderR2(BTreeNode* rt);
+    
+    //my functions
+    void InorderR(BTreeNode* rt);
+    //string InorderR2(BTreeNode* rt);
+    void TestIfTreeCorrect();
     bool TestIfSearchCorrect();
 private:
     bool add_node(BTreeNode *parent, char Data);
@@ -134,20 +136,64 @@ void BTree::InorderR(BTreeNode* rt)
     }
     
 }
+//Finally got this too work!!! It prints a tree to the screen in InOrder
+//If Putonti is grading this: The dumb mistake that was causing it to break: 
+//The functions calls within the function didn't have the same name as the function signature! 
+//Not sure why this still let me run the program... oh computers
 
-
-string BTree::InorderR2(BTreeNode* rt){
+/*string BTree::InorderR2(BTreeNode* rt){
  string output = "";
  
  if(rt !=NULL)
  {
  InorderR2(rt->Lchild);
- cout<< rt->Data<<endl;
+ output += rt -> Data
  InorderR2(rt->Rchild);
  }
  return output;
     
- }
+ }*/
+//Note: To avoid using a visual cross check, I tried to return a string from this function, 
+//but b.c. it is recursive, it didn't quite work correctly and only returned the root of the tree. 
+//So I'm sticking with a visual cross check for now.
+
+void BTree:: TestIfTreeCorrect(){
+    vector<string> testVector;
+    BTree *test = new BTree();
+    string answer;
+    
+    
+    testVector.push_back("rr");
+    testVector.push_back("ry");
+    
+    for(int i=0;i<testVector.size();i++) {
+        test->add_word_to_tree(testVector[i]);
+    }
+    
+    test -> InorderR(test->Root);
+    
+    cout<<"Does the tree printed above to the console look like?: \nr\nr\ny\n-\n"<<endl;
+    cout<<"Enter Y if yes or N if no"<<endl;
+    
+    cin>>answer;
+    if (answer =="Y") {
+        cout<<"Your tree was set up correctly"<<endl;
+    }
+    else if(answer == "N")
+        cout<<"Your tree was not set up correctly"<<endl;
+    else
+        cout<<"Invalid input"<<endl;
+}
+
+//This function relies on the creation of a mini tree for testing purposes.
+//We know that once we call the tree traversal function InorderR that the tree, 
+//b.c. it is traversed in inorder will produce console output in the order LDR, 
+//which will read RRY- (with the dash representing the root).
+//If the user's tree was set up correctly, when you use their function that adds the words
+//to create this test tree and output that tree with the traverse function, 
+//it should give you this answer. This test method does rely on user intelligence, but for practical purposes, 
+//for someone grading a tree creation function it would be an easy visual check.
+
 
 bool BTree:: TestIfSearchCorrect(){
     
@@ -178,7 +224,10 @@ bool BTree:: TestIfSearchCorrect(){
      return 1;
 
 }
-
+//This function assumes we are using code from add_word_to_tree or a correctly working tree creating function to create a test tree 
+//from a test vector. I then created a for loop in which I can use a search function to check that each element in my vector 
+//that was added to my tree is in my tree. If even a single element added to my tree is not found in my tree, 
+//I know that the search function is not working correctly.
 
 
 //build tree out of vector called words, search in teh vector called words
@@ -224,32 +273,13 @@ int main()
     
     delete is_in;
     
-    
-    vector<string> testVector;
     BTree *test = new BTree();
     
-   
-    testVector.push_back("rr");
-    testVector.push_back("ry");
-    
-    for(int i=0;i<testVector.size();i++) {
-        test->add_word_to_tree(testVector[i]);
-    }
-    
-    test -> InorderR(test->Root);
-    
-    cout<<"You is equal Y or N?"<<endl;
-    
-    if (cin>>"Y") {
-        cout<<"Your tree was set up correctly"<<endl;
-    }
-    else if(cin>>"N")
-        cout<<Your tree was not set up correctly"<<endl;
-    else
-        cout<<"Invalid input"<<endl;
-    
-    
+    test -> TestIfTreeCorrect();
+
     test -> TestIfSearchCorrect();
+    
+    //Calling my test functions
     
 }
 
